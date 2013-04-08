@@ -39,7 +39,7 @@ if [[ $REPLY =~ ^[Yy]$ ]]; then
   detach_vol
   verify_update
 
-  if [[ $STATUS ~= 'available' ]]; then
+  if [[ $STATUS =~ 'available' ]]; then
     echo "Status is $STATUS, looks good"
   else
     echo "Status is not correct, please try again"
