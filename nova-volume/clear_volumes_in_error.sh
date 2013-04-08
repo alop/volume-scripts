@@ -15,12 +15,19 @@ usage() {
 get_list() {
   LIST=`$SQL_CMD -e "select id from volumes where status like 'error%' and deleted=0 and provider_location is NULL"`
 }
+clean_up() {
+  $SQL_CMD -e "update volumes set deleted=1,deleted_at=(NOW()) where status like 'error%' and deleted=0 and provider_location is NULL"
+}
 get_list
+
+if [ -z $LIST ]; then
+  echo "Looks like there are no error volumes at this time"
+  exit
+fi
 
 echo "Clearing up volumes that are in an error state"
 echo $LIST
-$SQL_CMD -e "update volumes set deleted=1,deleted_at=(NOW()) where status like 'error%' and deleted=0 and provider_location is NULL"
-
+clean_up
 unset LIST
 get_list
 if [ -z $LIST ]; then
