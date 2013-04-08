@@ -23,6 +23,6 @@ $SQL_CMD -e "update volumes set deleted=1,deleted_at=(NOW()) where status like '
 
 unset LIST
 get_list
-if [ `set | grep '^LIST=$'` ]; then
-  echo "something has not worked"
+if [ -z $LIST ]; then
+  echo "Everything looks ok now"
 fi
