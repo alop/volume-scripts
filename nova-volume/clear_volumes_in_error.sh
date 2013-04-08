@@ -10,10 +10,6 @@ usage() {
   exit 1
 }
 
-if [ -z $1 ]; then
-  usage
-fi
-
 #Get our vars sourced
 . setup_env.sh
 get_list() {
