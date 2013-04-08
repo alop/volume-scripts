@@ -22,6 +22,11 @@ VOLUME_ID=$1
 detach_vol() {
   $SQL_CMD -e "update volumes set status='available',mountpoint=NULL,instance_id=NULL,attach_status='detached',updated_at=(NOW()) where id='${VOLUME_ID}'"
 }
+
+verify_update() {
+  STATUS=`$SQL_CMD -e "select status from volumes where id='${VOLUME_ID}'"`
+}
+
 # Look for volume
 echo "Looking for $VOLUME_ID"
 
@@ -30,6 +35,13 @@ NAME=`$SQL_CMD -e "select display_name from volumes where id='${VOLUME_ID}'"`
 echo "Is $NAME the volume that needs to be detached in the DB?"
 read -p "Are you sure?" -n 1 -r
 if [[ $REPLY =~ ^[Yy]$ ]]; then
-  echo "Ok, doing stuff here"
+  echo "Ok, marking volume $VOLUME_ID $NAME as detached and available"
   detach_vol
+  verify_update
+
+  if [[ $STATUS ~= 'available' ]]; then
+    echo "Status is $STATUS, looks good"
+  else
+    echo "Status is not correct, please try again"
+  fi
 fi
