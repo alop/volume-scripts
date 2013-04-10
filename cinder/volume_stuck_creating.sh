@@ -26,7 +26,7 @@ LOCATION=`$SQL_CMD -e "select provider_location from volumes where id='${VOLUME_
 
 if [[ $STATUS != 'creating' ]]; then
   echo "Volume $VOLUME_ID $NAME is not stuck in creating, it is $STATUS"
-  exit
+  exit 1
 else
   echo "Checking if volume was already allocated"
 fi
