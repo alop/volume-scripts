@@ -23,7 +23,9 @@ echo "Quota thinks it's $QUOTA_VOL" >>$LOGFILE
 if [ $COUNT -eq $QUOTA_VOL ]
 then
 	echo "Quota matches, exiting" >>$LOGFILE
-	MATCH=true
+else
+  echo "Quota needs update" >>$LOGFILE
+  update_quota
 fi
 }
 check_space() {
@@ -37,7 +39,9 @@ fi
 if [ $SIZE -eq $QUOTA_GIGS ]
 then
 	echo "Size quota matches, exiting" >>$LOGFILE
-	SIZE_MATCH=true
+else
+  echo "Suze quota needs update" >>$LOGFILE
+  update_quota
 fi
 }
 
@@ -52,19 +56,7 @@ echo "Should be fixed" >>$LOGFILE
 
 for PROJECT_ID in $PROJECT_LIST
 do
-MATCH=false
-SIZE_MATCH=false
 check_quota
-if [ $MATCH ]; then
-	echo "Quota is OK" >>$LOGFILE
-else
-update_quota
-fi
 check_space
-if [ $SIZE_MATCH ]; then
-	echo "Size quota is OK" >>$LOGFILE
-else
-update_quota
-fi
 done
 
