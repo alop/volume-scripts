@@ -21,7 +21,6 @@ VOLUME_ID=$1
 
 detach_vol() {
   $SQL_CMD -e "update volumes set status='available',mountpoint=NULL,instance_uuid=NULL,attach_status='detached',updated_at=(NOW()) where id='${VOLUME_ID}'"
-  $SQL_CMD -e "update block_device_mapping set deleted=1,deleted_at=(NOW()) where volume_id='${VOLUME_ID}' and deleted=0"
 }
 
 verify_update() {
