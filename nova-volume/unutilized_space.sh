@@ -14,4 +14,4 @@ usage() {
 . setup_env.sh
 
 SPACE=`$SQL_CMD -e "select SUM(size) from volumes where deleted=0 and status='available'"`
-echo "Total requested space for unused volumes = $SPACE"
+echo "Total requested space for unused volumes = ${SPACE}GB"
