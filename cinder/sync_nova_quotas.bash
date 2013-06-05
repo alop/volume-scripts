@@ -50,7 +50,7 @@ echo "Updating... $PROJECT_ID" >>$LOGFILE
 
 $N_SQL_CMD -e "update quota_usages set in_use=(select COUNT(*) from instances where project_id='${PROJECT_ID}' and deleted=0) where project_id='${PROJECT_ID}' and resource='instances'"
 $N_SQL_CMD -e "update quota_usages set in_use=(select SUM(vcpus) from instances where project_id='${PROJECT_ID}' and deleted=0) where project_id='${PROJECT_ID}' and resource='cores'"
-$N_SQL_CMD -e "update quota_usages set in_use=(select SUM(memory_mb) from instances where project_id='${PROJECT_ID}' and deleted=0) where project_id='${PROJECT_ID}' and resources='ram'"
+$N_SQL_CMD -e "update quota_usages set in_use=(select SUM(memory_mb) from instances where project_id='${PROJECT_ID}' and deleted=0) where project_id='${PROJECT_ID}' and resource='ram'"
 
 echo "Should be fixed" >>$LOGFILE
 }
