@@ -9,7 +9,7 @@ LOGFILE=/var/log/quota_sync.log
 . setup_env.sh
 
 #Get all quotas by project
-PROJECT_LIST=`N_SQL_CMD -N -e "select distinct project_id from quota_usages"`
+PROJECT_LIST=`$N_SQL_CMD -N -e "select distinct project_id from quota_usages"`
 
 #TEST QUERIES
 check_quota() {
