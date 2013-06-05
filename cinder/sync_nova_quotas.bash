@@ -58,6 +58,6 @@ echo "Should be fixed" >>$LOGFILE
 for PROJECT_ID in $PROJECT_LIST
 do
 check_quota
-check_space
+check_ram
 done
 
