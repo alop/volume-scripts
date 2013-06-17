@@ -21,7 +21,7 @@ fi
 TENANT_NAME=$1
 
 #get tenant Id from keystone
-PROJECT_ID=`$K_SQL_CMD-e "select id from tenant where name='${TENANT_NAME}'"`
+PROJECT_ID=`$K_SQL_CMD -e "select id from tenant where name='${TENANT_NAME}'"`
 
 #TEST QUERIES
 
