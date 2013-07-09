@@ -14,9 +14,11 @@ usage() {
 . setup_env.sh
 get_list() {
   LIST=`$SQL_CMD -e "select id from volumes where status like 'error%' and deleted=0 and provider_location is NULL"`
+  SNAP_LIST=`$SQL_CMD -e "select id from snapshots where status like 'error%' and deleted=0"`
 }
 clean_up() {
   $SQL_CMD -e "update volumes set deleted=1,deleted_at=(NOW()) where status like 'error%' and deleted=0 and provider_location is NULL"
+  $SQL_CMD -e "update snapshots set deleted=1,deleted_at=(NOW()) where status like 'error%' and deleted=0"
 }
 get_list
 
@@ -27,6 +29,8 @@ fi
 
 echo "Clearing up volumes that are in an error state"
 echo $LIST
+echo "Clearing up snapshots that are in an error state"
+echo $SNAP_LIST
 clean_up
 unset LIST
 get_list
