@@ -22,7 +22,7 @@ clean_up() {
 }
 get_list
 
-if [ -z $LIST ]; then
+if [ -z "$LIST" ]; then
   echo "Looks like there are no error volumes at this time"
   exit
 fi
